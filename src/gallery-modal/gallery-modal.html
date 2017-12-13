@@ -8,6 +8,11 @@
     <ion-icon name="{{ closeIcon }}"></ion-icon>
   </button>
 
+  <button class="close-button" ion-button icon-only (click)="share()" end>
+    <ion-icon ios="ios-share" md="md-share"></ion-icon>
+  </button>
+
+
   <!-- Initial image while modal is animating -->
   <div class="image-on-top" [hidden]="sliderLoaded">
     <zoomable-image

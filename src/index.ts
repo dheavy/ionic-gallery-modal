@@ -1,6 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicPageModule } from 'ionic-angular';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { FittedImage } from './fitted-image/fitted-image';
 import { ZoomableImage } from './zoomable-image/zoomable-image';
@@ -9,6 +10,7 @@ import { GalleryModal } from './gallery-modal/gallery-modal';
 import { TouchEventsDirective } from './directives/touch-events';
 
 import { GalleryModalHammerConfig } from './overrides/gallery-modal-hammer-config';
+
 
 @NgModule({
   imports: [
@@ -33,6 +35,9 @@ import { GalleryModalHammerConfig } from './overrides/gallery-modal-hammer-confi
   entryComponents: [
     GalleryModal,
   ],
+  providers: [
+    SocialSharing
+  ]
 })
 export class GalleryModalModule {}
 export { FittedImage, ZoomableImage, GalleryModal, GalleryModalHammerConfig, TouchEventsDirective }

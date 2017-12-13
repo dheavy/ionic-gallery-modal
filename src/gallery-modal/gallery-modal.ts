@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { ViewController, NavParams, Slides, Platform } from 'ionic-angular';
 import { Photo } from '../interfaces/photo-interface';
 import { Subject } from 'rxjs/Subject';
@@ -39,7 +40,14 @@ export class GalleryModal implements OnInit {
   private transitionDuration: string = '200ms';
   private transitionTimingFunction: string = 'cubic-bezier(0.33, 0.66, 0.66, 1)';
 
-  constructor(private viewCtrl: ViewController, params: NavParams, private element: ElementRef, private platform: Platform, private domSanitizer: DomSanitizer) {
+  constructor(
+    private viewCtrl: ViewController,
+    params: NavParams,
+    private element: ElementRef,
+    private platform: Platform,
+    private domSanitizer: DomSanitizer,
+    private socialSharing: SocialSharing
+  ) {
     this.photos = params.get('photos') || [];
     this.closeIcon = params.get('closeIcon') || 'arrow-back';
     this.initialSlide = params.get('initialSlide') || 0;
@@ -57,6 +65,20 @@ export class GalleryModal implements OnInit {
    */
   public dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  public share() {
+    const fileUrl = this.photos[this.slider.getActiveIndex()].url;
+
+    this.socialSharing
+      .share(null, null, null, fileUrl)
+      .then(() => {
+        console.log(`Shared file ${fileUrl}`)
+      })
+      .catch((err) => {
+        console.error(`Couldn't share file ${fileUrl}`);
+        console.error(err);
+      });
   }
 
   private resize(event) {
